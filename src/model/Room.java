@@ -3,7 +3,7 @@ package model;
 import java.util.Objects;
 
 public class Room implements IRoom{
-     String roomNumber;
+     private final String roomNumber;
      Double price;
      RoomType enumeration;
 
@@ -15,17 +15,17 @@ public class Room implements IRoom{
 
     @Override
     public String getRoomNumber() {
-        return null;
+        return roomNumber;
     }
 
     @Override
     public Double getRoomPrice() {
-        return null;
+        return price;
     }
 
     @Override
     public RoomType getRoomType() {
-        return null;
+        return enumeration;
     }
 
     @Override
@@ -48,5 +48,14 @@ public class Room implements IRoom{
     @Override
     public int hashCode(){
         return Objects.hash(roomNumber, price, enumeration);
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomNumber='" + roomNumber + '\'' +
+                ", price=" + price +
+                ", enumeration=" + enumeration +
+                '}';
     }
 }

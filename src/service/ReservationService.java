@@ -15,19 +15,28 @@ public class ReservationService {
         }
         return Instance;
     }
-    Collection<Reservation> reservations = new HashSet<>();
-    Map<String,IRoom>  rooms = new HashMap<>();
 
+    Set <Reservation> reservations = new HashSet<>();
+    Set<IRoom>  rooms = new HashSet<>();
 
+    public Collection<Reservation> getAllReservation(){
+        return new ArrayList<>(reservations);
+    }
 
 
     public void addRoom(IRoom room){
-        rooms.put(room.getRoomNumber(),room);
+        rooms.add(room);
     }
 
 
     public IRoom getARoom(String roomId){
-        return rooms.get(roomId);
+        for(IRoom room: rooms){
+            if(room.getRoomNumber().equals(roomId)){
+                return room;
+            }
+        }
+
+        return null;
     }
 
     public Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate,Date checkOutDate){
@@ -43,24 +52,29 @@ public class ReservationService {
 
 
     public Collection <IRoom> findRooms(Date checkInDate,Date checkOutDate){
-        Collection<IRoom> allRooms = rooms.values();
-        Collection<Reservation> allReservations = reservations;
-        Collection<IRoom> not_availabe = new HashSet<>();
+//        Collection<IRoom> allRooms = rooms;
 
-        for(Reservation bookRoom : reservations){
+        List<IRoom> allRooms = new ArrayList<>(rooms);
+
+        Collection <Reservation> allReservations = reservations;
+
+//        Collection<IRoom> not_availabe = new HashSet<>();
+
+        for(Reservation bookRoom : allReservations){
             if(checkInDate.before(bookRoom.getCheckOutDate()) && checkOutDate.after(bookRoom.getCheckInDate())){
-                not_availabe.add(bookRoom.getRoom());
+//                not_availabe.add(bookRoom.getRoom());
+                allRooms.remove(bookRoom.getRoom());
             }
         }
 
-        for (IRoom room: not_availabe){
-
-            for (IRoom r : allRooms) {
-                if (r == room){
-                    allRooms.remove(room);
-                }
-            }
-        }
+//        for (IRoom room: not_availabe){
+//
+//            for (IRoom r : allRooms) {
+//                if (r == room){
+//                    allRooms.remove(room);
+//                }
+//            }
+//        }
 
         return allRooms;
 
@@ -79,7 +93,7 @@ public class ReservationService {
     }
 
     public Collection<IRoom> getAllRooms(){
-        return rooms.values();
+        return rooms;
     }
 
     public void displayReservation (){

@@ -16,7 +16,7 @@ public class MainMenu {
         System.out.println("""
                 Welcome To Hotel Reservation Applictaion
                 ************* Main Menu ***************
-                1. Find and reseve a room
+                1. Find and reserve a room
                 2. See my reservations
                 3. Create an account
                 4. Admin
@@ -86,6 +86,7 @@ public class MainMenu {
         checkOut = new SimpleDateFormat("dd/MM/yyyy").parse(outDate);
 
         Collection<IRoom>getAllRooms = hotelResources.findARoom(checkIn,checkOut);
+
         if (getAllRooms.isEmpty()){
             System.out.println("Room not available at given date");
             roomForAlternateDay(checkIn, checkOut);
@@ -93,6 +94,7 @@ public class MainMenu {
         }
         else {
             for(IRoom room : getAllRooms){
+
                 System.out.println(room);
             }
             reserveARoom(checkIn,checkOut,getAllRooms);
@@ -101,6 +103,16 @@ public class MainMenu {
     }
 
     private static void reserveARoom(Date checkIn, Date checkOut, Collection<IRoom> getAllRooms) throws ParseException {
+
+//        List<IRoom> roomAvailable = new ArrayList<>(hotelResources.findARoom(checkIn,checkOut));
+//
+//        List <Reservation> allReservation = new ArrayList<>(hotelResources.reservationService.getAllReservation());
+//
+//
+//        for(Reservation reservation: allReservation){
+//
+//        }
+
         System.out.println("Do you want to reserve a room: y/n ");
         String resChoice = sc.nextLine();
         if(resChoice.equals("y")){

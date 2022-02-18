@@ -73,15 +73,18 @@ public class AdminMenu {
 
     private static void checkAllRooms() throws ParseException {
 
-        Collection<IRoom> roms = adminResource.getAllRooms();
-        List<IRoom> rooms = new ArrayList<>(roms);
+        Collection<IRoom> rooms = adminResource.getAllRooms();
+
+//        List<IRoom> rooms = new ArrayList<>(roms);
 
         if(rooms.isEmpty()){
             System.out.println("No rooms available: ");
             adminMenu();
         }
         else {
-            rooms.forEach(room -> System.out.println("Room No: "+room.getRoomNumber()));
+            for(IRoom room: rooms){
+                System.out.println("Room: " + room.toString());
+            }
             adminMenu();
         }
 
